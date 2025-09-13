@@ -6,13 +6,49 @@ output: html_document
 ---
 
 # Problem 1
-# Import dataset
+
 ```{r setup, include=FALSE}
-install.packages("moderndive")
+#install.packages("moderndive")
+library(moderndive)
+library(ggplot2)
 ```
 
-# Load Dataset
+
 ```{r, echo=FALSE}
 data("early_january_weather")
+```
+
+## View variables in this dataset & check the values of important variable
+```{r}
+names(early_january_weather)
+summary(early_january_weather)
+```
+
+
+## Show the size of the dataset, including the number of row and column.
+```{r}
+nrow(early_january_weather)
+ncol(early_january_weather)
+```
+## Row = 358, column = 15.
+
+## Calculate the mean of temperature
+```{r}
+mean(early_january_weather$temp)
+```
+## Mean: 39.58212
+
+## Summary: This dataset has 358 rows and 15 columns. The variables inclue "origin", "year", "month", "day", "hour", "temp", "dewp", "humid", "wind_dir", "wind_speed", "wind_gust",  "precip", "pressure", "visib", "time_hour". And the mean of temperature is 39.58 °F.
+
+## Creat the scatterplot & Save it
+```{r}
+ggplot(early_january_weather, aes(x = time_hour, y = temp, color = humid) ) + 
+  geom_point() + 
+  labs(
+    title = "Temperature vs. Time",
+    x = "Time (Hour)",
+    y = "Temperature (°F)"
+  )
+ggsave("Scatter_temp_time.png", width = 7, height = 5)
 ```
 
