@@ -5,9 +5,14 @@ date: "2025-09-13"
 output: html_document
 ---
 
+# Problem 1
 # Import dataset
 ```{r setup, include=FALSE}
 install.packages("moderndive")
 ```
 
+# Load Dataset
+```{r, echo=FALSE}
+data("early_january_weather")
+```
 
