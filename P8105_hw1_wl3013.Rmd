@@ -11,6 +11,7 @@ output: html_document
 #install.packages("moderndive")
 library(moderndive)
 library(ggplot2)
+library(tidyverse)
 ```
 
 
@@ -53,5 +54,50 @@ ggplot(early_january_weather, aes(x = time_hour, y = temp, color = humid) ) +
     y = "Temperature (°F)"
   )
 ggsave("Scatter_temp_time.png", width = 7, height = 5)
+```
+
+# Problem 2
+
+*Create a data frame contains:
+  A random sample of size 10 from standard Normal distribution
+  Logical vector indicating whether elements of the sample are greater than 0
+  Character vector of length 10
+  Factor vector of length 10, with 3 different factor "level"
+
+```{r}
+set.seed(123)
+
+Q2_df = tibble(
+  vec_numeric = rnorm(10),
+  vec_logical = rnorm(10)>0,
+  vec_char = sample(letters,10),
+  vec_factor = factor(sample(c("Yes","No","Unknown"),10, replace = T))
+  
+)
+```
+
+
+*Try to take the mean of each variable
+
+```{r}
+mean(Q2_df %>% pull(vec_numeric))
+mean(Q2_df %>% pull(vec_logical))
+mean(Q2_df %>% pull(vec_char))
+mean(Q2_df %>% pull(vec_factor))
+```
+Summary: Taking mean only work for variable of numeric and logical, the other two, character vector and factor vector can't be calculate the mean.
+
+```{r,include=FALSE}
+# Turn vec_logical, vec_char and vec_factor into numeric
+as.numeric(Q2_df %>% pull(vec_logical))
+as.numeric(Q2_df %>% pull(vec_char))
+as.numeric(Q2_df %>% pull(vec_factor))
+
+# Try to take the mean again
+mean(Q2_df %>% pull(vec_logical))
+mean(Q2_df %>% pull(vec_char))
+mean(Q2_df %>% pull(vec_factor))
+
+# This works for logical vector, but not for the other two. Character vector and factor vector still return NA when calculating the mean. 
 ```
 
